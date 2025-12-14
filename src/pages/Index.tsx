@@ -5,547 +5,539 @@ import { Badge } from '@/components/ui/badge';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeTab, setActiveTab] = useState<'covers' | 'fonts'>('covers');
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-  const slides = [
-    {
-      id: 0,
-      title: 'Ребрендинг VK для Республики Татарстан',
-      subtitle: 'Адаптивный дизайн с учетом региональной идентичности',
-      content: 'hero'
+  const bookCovers = [
+    { 
+      id: 1, 
+      title: 'Oil and Marble', 
+      author: 'Stephanie Storey', 
+      color: 'from-amber-600 to-stone-800',
+      style: 'Классическая обложка с золотыми акцентами',
+      elements: ['Мраморная текстура', 'Золотая типографика', 'Историческая атмосфера']
     },
-    {
-      id: 1,
-      title: 'Исходный логотип VK',
-      subtitle: 'Текущая версия бренда',
-      content: 'original'
+    { 
+      id: 2, 
+      title: 'Raphael, Painter in Rome', 
+      author: 'Stephanie Storey', 
+      color: 'from-red-700 to-amber-900',
+      style: 'Тёплая палитра эпохи Возрождения',
+      elements: ['Красные тона', 'Классические шрифты', 'Архитектурные мотивы']
     },
-    {
-      id: 2,
-      title: 'Бриф и Исследование',
-      subtitle: 'Маркетинговый анализ и мудборд',
-      content: 'brief'
+    { 
+      id: 3, 
+      title: 'The Agony and the Ecstasy', 
+      author: 'Irving Stone', 
+      color: 'from-blue-900 to-purple-800',
+      style: 'Драматичная композиция с фресками',
+      elements: ['Синие тона Сикстинской капеллы', 'Барельефные текстуры', 'Крупная типографика']
     },
-    {
-      id: 3,
-      title: 'Новый Логотип',
-      subtitle: 'Редизайн с татарскими мотивами',
-      content: 'redesign'
+    { 
+      id: 4, 
+      title: 'The Birth of Venus', 
+      author: 'Sarah Dunant', 
+      color: 'from-teal-700 to-blue-600',
+      style: 'Флорентийская палитра',
+      elements: ['Морские оттенки', 'Изящные шрифты', 'Символизм Ренессанса']
     },
-    {
-      id: 4,
-      title: 'Логобук',
-      subtitle: 'Руководство по использованию',
-      content: 'logobook'
+    { 
+      id: 5, 
+      title: 'The Passion of Artemisia', 
+      author: 'Susan Vreeland', 
+      color: 'from-rose-800 to-amber-700',
+      style: 'Женская перспектива в искусстве',
+      elements: ['Тёплые терракотовые тона', 'Кисти художника', 'Элегантная композиция']
     },
-    {
-      id: 5,
-      title: 'Анимированный Логотип',
-      subtitle: 'Динамическая версия для подразделений',
-      content: 'animation'
+    { 
+      id: 6, 
+      title: 'The Botticelli Secret', 
+      author: 'Marina Fiorato', 
+      color: 'from-emerald-700 to-yellow-800',
+      style: 'Загадочный триллер эпохи Возрождения',
+      elements: ['Изумрудно-золотая палитра', 'Интрига', 'Флорентийские узоры']
     },
-    {
-      id: 6,
-      title: 'Шоппер Маруся',
-      subtitle: 'Применение фирменного стиля',
-      content: 'shopper'
+    { 
+      id: 7, 
+      title: 'The Marriage Portrait', 
+      author: "Maggie O'Farrell", 
+      color: 'from-purple-900 to-pink-700',
+      style: 'Королевские портреты',
+      elements: ['Пурпурные королевские тона', 'Портретная живопись', 'Богатые текстуры']
+    },
+    { 
+      id: 8, 
+      title: 'The Architect\'s Apprentice', 
+      author: 'Elif Shafak', 
+      color: 'from-cyan-800 to-orange-700',
+      style: 'Восточная архитектура Возрождения',
+      elements: ['Бирюзово-оранжевые акценты', 'Купола и минареты', 'Орнаментальные узоры']
+    },
+    { 
+      id: 9, 
+      title: 'The Medici Series', 
+      author: 'Sarah Dunant', 
+      color: 'from-red-900 to-yellow-700',
+      style: 'Династическая сага',
+      elements: ['Красно-золотая геральдика', 'Медичейский герб', 'Властные мотивы']
+    },
+    { 
+      id: 10, 
+      title: 'In the Company of the Courtesan', 
+      author: 'Sarah Dunant', 
+      color: 'from-violet-800 to-red-700',
+      style: 'Венецианская роскошь',
+      elements: ['Фиолетово-красная драпировка', 'Венецианское стекло', 'Роскошь']
+    },
+    { 
+      id: 11, 
+      title: 'Leonardo\'s Swans', 
+      author: 'Karen Essex', 
+      color: 'from-slate-700 to-amber-600',
+      style: 'Придворная жизнь Ренессанса',
+      elements: ['Серебряно-золотые тона', 'Лебединая грация', 'Дворцовые интерьеagedy']
+    },
+    { 
+      id: 12, 
+      title: 'The Girl with a Pearl Earring', 
+      author: 'Tracy Chevalier', 
+      color: 'from-indigo-900 to-amber-500',
+      style: 'Голландский золотой век',
+      elements: ['Синие с золотом', 'Жемчужные акценты', 'Интимная атмосфера']
+    },
+    { 
+      id: 13, 
+      title: 'The Venetian Affair', 
+      author: 'Andrea Di Robilant', 
+      color: 'from-teal-800 to-rose-600',
+      style: 'Романтическая Венеция',
+      elements: ['Лагунные оттенки', 'Мосты и каналы', 'Любовная драма']
+    },
+    { 
+      id: 14, 
+      title: 'Michelangelo and the Pope\'s Ceiling', 
+      author: 'Ross King', 
+      color: 'from-stone-800 to-blue-700',
+      style: 'Документальная драма',
+      elements: ['Каменные текстуры', 'Небесные фрески', 'Архитектурные формы']
+    },
+    { 
+      id: 15, 
+      title: 'The Venus Throw', 
+      author: 'Steven Saylor', 
+      color: 'from-amber-800 to-red-700',
+      style: 'Римский детектив',
+      elements: ['Мраморные колонны', 'Античные статуи', 'Криминальная интрига']
+    },
+    { 
+      id: 16, 
+      title: 'The Last Painting of Sara de Vos', 
+      author: 'Dominic Smith', 
+      color: 'from-gray-800 to-blue-600',
+      style: 'Многослойное повествование',
+      elements: ['Зимние пейзажи', 'Холодные оттенки', 'Временные слои']
+    },
+    { 
+      id: 17, 
+      title: 'The Glassblower of Murano', 
+      author: 'Marina Fiorato', 
+      color: 'from-cyan-700 to-amber-600',
+      style: 'Венецианское стекло',
+      elements: ['Прозрачные текстуры', 'Огненные блики', 'Ремесленные традиции']
+    },
+    { 
+      id: 18, 
+      title: 'Sacred Hearts', 
+      author: 'Sarah Dunant', 
+      color: 'from-rose-900 to-indigo-700',
+      style: 'Монастырская жизнь',
+      elements: ['Розово-пурпурные тона', 'Религиозные символы', 'Клаустрофобная атмосфера']
+    },
+    { 
+      id: 19, 
+      title: 'The Painter\'s Apprentice', 
+      author: 'Laura Morelli', 
+      color: 'from-amber-700 to-green-800',
+      style: 'Мастерская художника',
+      elements: ['Земляные тона', 'Палитры и кисти', 'Учебный процесс']
+    },
+    { 
+      id: 20, 
+      title: 'The Book of Lost Fragrances', 
+      author: 'M.J. Rose', 
+      color: 'from-purple-800 to-pink-600',
+      style: 'Парфюмерная история',
+      elements: ['Флаконы и ароматы', 'Фиолетово-розовая дымка', 'Загадочность']
+    },
+    { 
+      id: 21, 
+      title: 'The Borgia Confessions', 
+      author: 'Alyssa Palombo', 
+      color: 'from-red-800 to-black',
+      style: 'Тёмная сторона Ренессанса',
+      elements: ['Кроваво-чёрные тона', 'Интриги Ватикана', 'Опасность']
+    },
+    { 
+      id: 22, 
+      title: 'The School of Beauty and Charm', 
+      author: 'Melanie Sumner', 
+      color: 'from-pink-700 to-blue-600',
+      style: 'Современное прочтение классики',
+      elements: ['Контрастные цвета', 'Двойная временная линия', 'Элегантность']
     }
   ];
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const renderSlideContent = () => {
-    const slide = slides[currentSlide];
-
-    switch (slide.content) {
-      case 'hero':
-        return (
-          <div className="flex flex-col items-center justify-center h-full text-center space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-7xl font-bold bg-gradient-to-r from-[hsl(var(--vk-blue))] via-[hsl(var(--tatar-green))] to-[hsl(var(--accent-red))] bg-clip-text text-transparent">
-                Ребрендинг VK
-              </h1>
-              <h2 className="text-4xl font-semibold text-[hsl(var(--foreground))]">
-                для Республики Татарстан
-              </h2>
-            </div>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              Адаптивный дизайн логотипа с учетом национальных и региональных особенностей
-            </p>
-            <div className="flex gap-4 mt-8">
-              <Badge variant="secondary" className="px-6 py-3 text-lg">
-                Региональная идентичность
-              </Badge>
-              <Badge variant="secondary" className="px-6 py-3 text-lg">
-                Современный стиль
-              </Badge>
-              <Badge variant="secondary" className="px-6 py-3 text-lg">
-                Культурные мотивы
-              </Badge>
-            </div>
-          </div>
-        );
-
-      case 'original':
-        return (
-          <div className="flex flex-col items-center justify-center h-full space-y-12">
-            <div className="bg-white p-16 rounded-3xl shadow-2xl">
-              <div className="flex items-center gap-4">
-                <div className="w-24 h-24 bg-[hsl(var(--vk-blue))] rounded-2xl flex items-center justify-center">
-                  <Icon name="MessageCircle" size={48} className="text-white" />
-                </div>
-                <span className="text-6xl font-bold text-[hsl(var(--vk-blue))]">ВКонтакте</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-8 max-w-4xl">
-              <Card className="p-6 text-center">
-                <Icon name="Users" size={32} className="mx-auto mb-3 text-[hsl(var(--vk-blue))]" />
-                <h3 className="font-semibold mb-2">Крупнейшая аудитория</h3>
-                <p className="text-sm text-muted-foreground">Лидер рунета по охвату</p>
-              </Card>
-              <Card className="p-6 text-center">
-                <Icon name="Target" size={32} className="mx-auto mb-3 text-[hsl(var(--vk-blue))]" />
-                <h3 className="font-semibold mb-2">Миссия компании</h3>
-                <p className="text-sm text-muted-foreground">Человек в центре экосистемы</p>
-              </Card>
-              <Card className="p-6 text-center">
-                <Icon name="Lightbulb" size={32} className="mx-auto mb-3 text-[hsl(var(--vk-blue))]" />
-                <h3 className="font-semibold mb-2">Инновации</h3>
-                <p className="text-sm text-muted-foreground">Доступные технологии</p>
-              </Card>
-            </div>
-          </div>
-        );
-
-      case 'brief':
-        return (
-          <div className="grid grid-cols-2 gap-8 h-full">
-            <div className="space-y-6 overflow-auto pr-4">
-              <h3 className="text-3xl font-bold mb-6">Бриф</h3>
-              <Card className="p-6">
-                <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                  <Icon name="Users" size={20} className="text-[hsl(var(--vk-blue))]" />
-                  Целевая аудитория
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Молодежь и активные пользователи 18-45 лет, ценящие региональную идентичность, культурное наследие и современные технологии. Патриоты Татарстана, интересующиеся национальной культурой.
-                </p>
-              </Card>
-              <Card className="p-6">
-                <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                  <Icon name="MapPin" size={20} className="text-[hsl(var(--tatar-green))]" />
-                  Региональные особенности
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Татарские орнаменты, тюльпан как национальный символ, сочетание зеленого (природа, рост) и красного (энергия, наследие) цветов. Баланс между традициями и современностью.
-                </p>
-              </Card>
-              <Card className="p-6">
-                <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                  <Icon name="TrendingUp" size={20} className="text-[hsl(var(--accent-red))]" />
-                  Новая аудитория
-                </h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Расширение охвата среди татарской молодежи, привлечение пользователей, интересующихся региональным контентом, укрепление связи с местными сообществами и культурными инициативами.
-                </p>
-              </Card>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-3xl font-bold mb-6">Мудборд</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="aspect-square bg-gradient-to-br from-[hsl(var(--tatar-green))] to-[hsl(var(--vk-blue))] rounded-xl flex items-center justify-center text-white text-6xl">
-                  🌷
-                </div>
-                <div className="aspect-square bg-gradient-to-br from-[hsl(var(--accent-red))] to-[hsl(var(--gold))] rounded-xl flex items-center justify-center">
-                  <div className="w-full h-full p-6 flex items-center justify-center">
-                    <div className="border-4 border-white rounded-full w-20 h-20 flex items-center justify-center">
-                      <div className="text-white text-3xl">❋</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="aspect-square bg-[hsl(var(--vk-blue))] rounded-xl flex items-center justify-center">
-                  <div className="grid grid-cols-3 gap-2 p-4">
-                    {[...Array(9)].map((_, i) => (
-                      <div key={i} className="w-4 h-4 bg-white/30 rounded-sm" />
-                    ))}
-                  </div>
-                </div>
-                <div className="aspect-square bg-gradient-to-tr from-[hsl(var(--tatar-green))] via-[hsl(var(--gold))] to-[hsl(var(--accent-red))] rounded-xl flex items-center justify-center text-white text-5xl font-bold">
-                  ТТ
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'redesign':
-        return (
-          <div className="flex flex-col items-center justify-center h-full space-y-12">
-            <div className="bg-white p-16 rounded-3xl shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[hsl(var(--tatar-green))]/10 rounded-bl-full" />
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-[hsl(var(--accent-red))]/10 rounded-tr-full" />
-              <div className="flex items-center gap-6 relative z-10">
-                <div className="w-28 h-28 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-2xl flex items-center justify-center relative shadow-xl">
-                  <div className="absolute inset-2 bg-white/20 rounded-xl" />
-                  <div className="text-7xl z-10">🌷</div>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-6xl font-bold bg-gradient-to-r from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] bg-clip-text text-transparent">
-                    ВКонтакте
-                  </span>
-                  <span className="text-2xl font-semibold text-[hsl(var(--accent-red))] mt-1">
-                    Татарстан
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-6 max-w-4xl">
-              <Card className="p-6 text-center bg-gradient-to-br from-white to-blue-50">
-                <div className="text-4xl mb-3">🌷</div>
-                <h4 className="font-semibold mb-2">Тюльпан</h4>
-                <p className="text-sm text-muted-foreground">Национальный символ Татарстана</p>
-              </Card>
-              <Card className="p-6 text-center bg-gradient-to-br from-white to-green-50">
-                <div className="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-lg" />
-                <h4 className="font-semibold mb-2">Градиент</h4>
-                <p className="text-sm text-muted-foreground">Слияние традиций и технологий</p>
-              </Card>
-              <Card className="p-6 text-center bg-gradient-to-br from-white to-red-50">
-                <div className="text-4xl mb-3">❋</div>
-                <h4 className="font-semibold mb-2">Орнамент</h4>
-                <p className="text-sm text-muted-foreground">Элементы татарской культуры</p>
-              </Card>
-            </div>
-          </div>
-        );
-
-      case 'logobook':
-        return (
-          <div className="grid grid-cols-2 gap-8 h-full overflow-auto">
-            <div className="space-y-6">
-              <Card className="p-8 bg-white">
-                <h4 className="font-semibold mb-4">Основная версия</h4>
-                <div className="flex items-center gap-4 justify-center py-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-xl flex items-center justify-center text-5xl shadow-lg">
-                    🌷
-                  </div>
-                  <span className="text-4xl font-bold bg-gradient-to-r from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] bg-clip-text text-transparent">
-                    ВКонтакте
-                  </span>
-                </div>
-              </Card>
-              <Card className="p-8 bg-gray-900">
-                <h4 className="font-semibold mb-4 text-white">Версия для темного фона</h4>
-                <div className="flex items-center gap-4 justify-center py-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-xl flex items-center justify-center text-5xl shadow-lg">
-                    🌷
-                  </div>
-                  <span className="text-4xl font-bold text-white">
-                    ВКонтакте
-                  </span>
-                </div>
-              </Card>
-              <Card className="p-8 bg-white">
-                <h4 className="font-semibold mb-4">Черно-белая версия</h4>
-                <div className="flex items-center gap-4 justify-center py-8">
-                  <div className="w-20 h-20 bg-black rounded-xl flex items-center justify-center text-5xl shadow-lg">
-                    🌷
-                  </div>
-                  <span className="text-4xl font-bold text-black">
-                    ВКонтакте
-                  </span>
-                </div>
-              </Card>
-            </div>
-            <div className="space-y-6">
-              <Card className="p-8">
-                <h4 className="font-semibold mb-6">Цветовая палитра</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-[hsl(var(--vk-blue))] rounded-lg shadow-md" />
-                    <div>
-                      <p className="font-medium">VK Blue</p>
-                      <p className="text-sm text-muted-foreground">#0077FF</p>
-                      <p className="text-xs text-muted-foreground">CMYK: 100, 53, 0, 0</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-[hsl(var(--tatar-green))] rounded-lg shadow-md" />
-                    <div>
-                      <p className="font-medium">Tatar Green</p>
-                      <p className="text-sm text-muted-foreground">#00A650</p>
-                      <p className="text-xs text-muted-foreground">CMYK: 100, 0, 80, 0</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-[hsl(var(--accent-red))] rounded-lg shadow-md" />
-                    <div>
-                      <p className="font-medium">Accent Red</p>
-                      <p className="text-sm text-muted-foreground">#E63946</p>
-                      <p className="text-xs text-muted-foreground">CMYK: 0, 85, 65, 0</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-8">
-                <h4 className="font-semibold mb-6">Охранное поле</h4>
-                <div className="bg-gray-50 p-8 rounded-lg flex items-center justify-center">
-                  <div className="relative">
-                    <div className="border-2 border-dashed border-gray-300 p-8">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-lg flex items-center justify-center text-2xl">
-                          🌷
-                        </div>
-                        <span className="text-2xl font-bold bg-gradient-to-r from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] bg-clip-text text-transparent">
-                          VK
-                        </span>
-                      </div>
-                    </div>
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 text-xs text-muted-foreground whitespace-nowrap">
-                      Минимум 1x высоты логотипа
-                    </div>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-8">
-                <h4 className="font-semibold mb-4">Минимальный размер</h4>
-                <p className="text-sm text-muted-foreground mb-4">Логотип: 100 мм по длинной стороне</p>
-                <p className="text-sm text-muted-foreground">Иконка: 24×24 px (цифровой формат)</p>
-              </Card>
-            </div>
-          </div>
-        );
-
-      case 'animation':
-        return (
-          <div className="flex flex-col items-center justify-center h-full space-y-12">
-            <h3 className="text-4xl font-bold">Анимированные версии для подразделений</h3>
-            <div className="grid grid-cols-3 gap-8 w-full max-w-5xl">
-              <Card className="p-8 bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-purple-500 rounded-xl flex items-center justify-center text-3xl animate-pulse">
-                      🌷
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      маруся
-                    </h4>
-                    <p className="text-sm text-muted-foreground">Голосовой ассистент</p>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-8 bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-xl flex items-center justify-center text-3xl animate-pulse">
-                      🌷
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                      работа
-                    </h4>
-                    <p className="text-sm text-muted-foreground">Карьерная платформа</p>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                <div className="space-y-4 text-center">
-                  <div className="flex items-center justify-center gap-3 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-[hsl(var(--tatar-green))] to-emerald-500 rounded-xl flex items-center justify-center text-3xl animate-pulse">
-                      🌷
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <h4 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                      здоровье
-                    </h4>
-                    <p className="text-sm text-muted-foreground">Медицинские услуги</p>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-        );
-
-      case 'shopper':
-        return (
-          <div className="flex items-center justify-center h-full">
-            <div className="grid grid-cols-2 gap-12 items-center max-w-6xl">
-              <div className="space-y-6">
-                <h3 className="text-4xl font-bold">Шоппер «Маруся»</h3>
-                <p className="text-lg text-muted-foreground">
-                  Холщовая сумка с применением фирменного стиля для подразделения «Маруся»
-                </p>
-                <div className="space-y-4">
-                  <Card className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Palette" size={24} className="text-purple-600" />
-                      <div>
-                        <h5 className="font-semibold">Цветовая схема</h5>
-                        <p className="text-sm text-muted-foreground">Градиент VK Blue → Purple</p>
-                      </div>
-                    </div>
-                  </Card>
-                  <Card className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Icon name="Flower2" size={24} className="text-[hsl(var(--tatar-green))]" />
-                      <div>
-                        <h5 className="font-semibold">Графика</h5>
-                        <p className="text-sm text-muted-foreground">Тюльпан + татарские орнаменты</p>
-                      </div>
-                    </div>
-                  </Card>
-                  <Card className="p-4">
-                    <div className="flex items-center gap-3">
-                      <Icon name="QrCode" size={24} className="text-[hsl(var(--vk-blue))]" />
-                      <div>
-                        <h5 className="font-semibold">Интерактив</h5>
-                        <p className="text-sm text-muted-foreground">QR-код на corp.mail.ru</p>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              </div>
-              <div className="relative perspective-1000">
-                <div className="relative w-[380px] h-[480px] transform rotate-y-[-8deg]" style={{ transformStyle: 'preserve-3d' }}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-stone-100 via-stone-50 to-stone-100 rounded-sm shadow-[0_20px_60px_rgba(0,0,0,0.25)] border-[1px] border-stone-200/50">
-                    <div className="relative w-full h-full p-8 flex flex-col">
-                      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-48 h-4 bg-gradient-to-r from-transparent via-stone-300/40 to-transparent rounded-full" />
-                      <div className="absolute top-8 left-12 right-12 flex justify-between">
-                        <div className="w-2 h-8 bg-stone-300/30 rounded-full" />
-                        <div className="w-2 h-8 bg-stone-300/30 rounded-full" />
-                      </div>
-                      
-                      <div className="flex-1 flex flex-col items-center justify-center space-y-8 mt-12">
-                        <div className="relative">
-                          <div className="w-28 h-28 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-purple-500 rounded-2xl flex items-center justify-center text-6xl shadow-lg transform -rotate-3">
-                            🌷
-                          </div>
-                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-[hsl(var(--tatar-green))] rounded-full opacity-20" />
-                        </div>
-                        
-                        <div className="space-y-3 text-center">
-                          <h4 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
-                            маруся
-                          </h4>
-                          <p className="text-xs text-stone-500 tracking-wider uppercase">VK Voice Assistant</p>
-                        </div>
-
-                        <div className="flex gap-2 justify-center">
-                          {[...Array(7)].map((_, i) => (
-                            <div 
-                              key={i} 
-                              className="w-1.5 h-1.5 rounded-full"
-                              style={{
-                                backgroundColor: `hsl(${250 + i * 10}, 70%, ${60 + i * 3}%)`,
-                                opacity: 0.4
-                              }}
-                            />
-                          ))}
-                        </div>
-
-                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-                          <div className="w-16 h-16 bg-white rounded-lg p-1.5 shadow-md">
-                            <div className="w-full h-full bg-gray-900 rounded flex items-center justify-center">
-                              <div className="grid grid-cols-3 gap-0.5">
-                                {[...Array(9)].map((_, i) => (
-                                  <div key={i} className="w-2 h-2 bg-white rounded-sm" />
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                          <p className="text-[10px] text-center text-stone-500 mt-2">corp.mail.ru</p>
-                        </div>
-                      </div>
-
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/20 pointer-events-none mix-blend-overlay" />
-                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')] opacity-30" />
-                    </div>
-                  </div>
-                  
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[85%] h-12 bg-gradient-to-b from-black/20 to-transparent rounded-full blur-xl" />
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
+  const renaissanceFonts = [
+    {
+      id: 1,
+      name: 'Garamond',
+      designer: 'Claude Garamond',
+      year: '1530-е',
+      description: 'Классический шрифт эпохи Возрождения с элегантными пропорциями и превосходной читаемостью',
+      usage: 'Oil and Marble, исторические романы',
+      characteristics: ['Старостильная антиква', 'Умеренный контраст', 'Изящные засечки', 'Гуманистический стиль']
+    },
+    {
+      id: 2,
+      name: 'Bembo',
+      designer: 'Francesco Griffo',
+      year: '1495',
+      description: 'Венецианский шрифт, вдохновлённый рукописями гуманистов',
+      usage: 'Raphael Painter in Rome, книги по истории искусства',
+      characteristics: ['Венецианская антиква', 'Каллиграфический характер', 'Органичные формы', 'Классические пропорции']
+    },
+    {
+      id: 3,
+      name: 'Palatino',
+      designer: 'Hermann Zapf',
+      year: '1949 (вдохновлён Ренессансом)',
+      description: 'Современная интерпретация ренессансной каллиграфии',
+      usage: 'Современные издания классики, элегантные заголовки',
+      characteristics: ['Широкие пропорции', 'Сильный контраст', 'Выразительные засечки', 'Читаемость']
+    },
+    {
+      id: 4,
+      name: 'Jenson',
+      designer: 'Nicolas Jenson',
+      year: '1470',
+      description: 'Один из первых римских шрифтов, образец типографического совершенства',
+      usage: 'Исторические издания, репринты',
+      characteristics: ['Гуманистическая антиква', 'Умеренные контрасты', 'Открытые формы', 'Стабильный ритм']
+    },
+    {
+      id: 5,
+      name: 'Centaur',
+      designer: 'Bruce Rogers',
+      year: '1914 (по мотивам Jenson)',
+      description: 'Изысканная реконструкция венецианской типографики XV века',
+      usage: 'Художественные издания, коллекционные книги',
+      characteristics: ['Венецианский стиль', 'Деликатные формы', 'Элегантность', 'Историческая точность']
+    },
+    {
+      id: 6,
+      name: 'Caslon',
+      designer: 'William Caslon',
+      year: '1722',
+      description: 'Английская интерпретация голландских старостильных шрифтов',
+      usage: 'Классическая литература, исторические публикации',
+      characteristics: ['Старостильная антиква', 'Надёжность', 'Вариативность', 'Универсальность']
+    },
+    {
+      id: 7,
+      name: 'Trajan',
+      designer: 'Carol Twombly',
+      year: '1989 (римские надписи)',
+      description: 'Капительный шрифт на основе надписей колонны Траяна',
+      usage: 'Заголовки книг об античности и Ренессансе, кинопостеры',
+      characteristics: ['Только заглавные', 'Монументальность', 'Классические пропорции', 'Императорский стиль']
+    },
+    {
+      id: 8,
+      name: 'Adobe Jenson Pro',
+      designer: 'Robert Slimbach',
+      year: '1996 (по Jenson)',
+      description: 'Цифровая версия классического Jenson с расширенными возможностями',
+      usage: 'Современные издания исторической фикшен',
+      characteristics: ['Цифровое качество', 'Полный набор символов', 'OpenType функции', 'Универсальность']
+    },
+    {
+      id: 9,
+      name: 'Minion Pro',
+      designer: 'Robert Slimbach',
+      year: '1990',
+      description: 'Современный старостильный шрифт с духом Ренессанса',
+      usage: 'Тексты романов, академические издания',
+      characteristics: ['Неоклассическая антиква', 'Отличная читаемость', 'Множество начертаний', 'Универсальность']
+    },
+    {
+      id: 10,
+      name: 'Sabon',
+      designer: 'Jan Tschichold',
+      year: '1967',
+      description: 'Шрифт на основе работ Гарамона, идеален для книжного набора',
+      usage: 'Длинные тексты, романы',
+      characteristics: ['Гармоничные пропорции', 'Комфорт чтения', 'Классический стиль', 'Стабильность']
     }
-  };
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-green-50">
-      <div className="container mx-auto px-4 py-8 h-screen flex flex-col">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-[hsl(var(--tatar-green))] rounded-xl flex items-center justify-center text-2xl">
-              🌷
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-stone-50 to-rose-50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-amber-700 to-red-800 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
+              📚
             </div>
             <div>
-              <h1 className="text-2xl font-bold">VK × Татарстан</h1>
-              <p className="text-sm text-muted-foreground">Презентация ребрендинга</p>
+              <h1 className="text-4xl font-bold text-stone-800">Книги Стефани Стори</h1>
+              <p className="text-lg text-stone-600">Референсы обложек исторической фикшн и шрифты эпохи Возрождения</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {slides.map((slide, index) => (
-              <button
-                key={slide.id}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentSlide
-                    ? 'bg-[hsl(var(--vk-blue))] w-8'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-              />
-            ))}
+
+          <div className="flex gap-3 mb-6">
+            <Button
+              onClick={() => setActiveTab('covers')}
+              variant={activeTab === 'covers' ? 'default' : 'outline'}
+              size="lg"
+              className="gap-2"
+            >
+              <Icon name="BookOpen" size={20} />
+              Обложки книг (22)
+            </Button>
+            <Button
+              onClick={() => setActiveTab('fonts')}
+              variant={activeTab === 'fonts' ? 'default' : 'outline'}
+              size="lg"
+              className="gap-2"
+            >
+              <Icon name="Type" size={20} />
+              Шрифты Ренессанса (10)
+            </Button>
           </div>
         </div>
 
-        <Card className="flex-1 p-12 shadow-2xl bg-white/80 backdrop-blur-sm">
-          <div className="h-full flex flex-col">
-            <div className="mb-6">
-              <h2 className="text-4xl font-bold mb-2">{slides[currentSlide].title}</h2>
-              <p className="text-xl text-muted-foreground">{slides[currentSlide].subtitle}</p>
+        {activeTab === 'covers' && (
+          <div>
+            <div className="mb-6 p-6 bg-white rounded-xl shadow-md border border-amber-200">
+              <h2 className="text-2xl font-semibold mb-3 flex items-center gap-2">
+                <Icon name="Palette" size={24} className="text-amber-700" />
+                Визуальные референсы обложек
+              </h2>
+              <p className="text-stone-600 mb-4">
+                Коллекция обложек исторической фикшн в стиле Стефани Стори: от её собственных произведений 
+                об эпохе Возрождения до схожих работ других авторов. Обратите внимание на цветовые палитры, 
+                типографику и композиционные решения.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Мраморные текстуры</Badge>
+                <Badge variant="secondary">Золотая типографика</Badge>
+                <Badge variant="secondary">Тёплые палитры</Badge>
+                <Badge variant="secondary">Классические шрифты</Badge>
+                <Badge variant="secondary">Историческая атмосфера</Badge>
+                <Badge variant="secondary">Портретная живопись</Badge>
+              </div>
             </div>
-            <div className="flex-1 overflow-auto">{renderSlideContent()}</div>
-          </div>
-        </Card>
 
-        <div className="flex justify-between items-center mt-6">
-          <Button
-            onClick={prevSlide}
-            variant="outline"
-            size="lg"
-            className="gap-2"
-            disabled={currentSlide === 0}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {bookCovers.map((cover) => (
+                <Card
+                  key={cover.id}
+                  className="group cursor-pointer hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                  onClick={() => setSelectedImage(cover.id)}
+                >
+                  <div className={`h-80 bg-gradient-to-br ${cover.color} relative overflow-hidden`}>
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 w-full">
+                        <h3 className="text-2xl font-bold text-white mb-2 line-clamp-2">
+                          {cover.title}
+                        </h3>
+                        <p className="text-white/90 font-medium">{cover.author}</p>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Icon name="ZoomIn" size={20} className="text-stone-800" />
+                    </div>
+                  </div>
+                  <div className="p-4 bg-white">
+                    <p className="text-sm font-semibold text-stone-700 mb-2">{cover.style}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {cover.elements.map((element, idx) => (
+                        <Badge key={idx} variant="outline" className="text-xs">
+                          {element}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'fonts' && (
+          <div>
+            <div className="mb-6 p-6 bg-white rounded-xl shadow-md border border-amber-200">
+              <h2 className="text-2xl font-semibold mb-3 flex items-center gap-2">
+                <Icon name="BookType" size={24} className="text-amber-700" />
+                Типографика эпохи Возрождения
+              </h2>
+              <p className="text-stone-600 mb-4">
+                Шрифты, вдохновлённые типографикой XV-XVI веков. Эти гарнитуры идеально подходят для обложек 
+                исторической фикшн, передавая дух Ренессанса через классические пропорции, элегантные засечки 
+                и гуманистический характер.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">Garamond</Badge>
+                <Badge variant="secondary">Bembo</Badge>
+                <Badge variant="secondary">Jenson</Badge>
+                <Badge variant="secondary">Palatino</Badge>
+                <Badge variant="secondary">Trajan</Badge>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {renaissanceFonts.map((font) => (
+                <Card key={font.id} className="p-6 hover:shadow-xl transition-shadow">
+                  <div className="mb-4">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <h3 className="text-3xl font-bold text-stone-800 mb-1" style={{ fontFamily: 'serif' }}>
+                          {font.name}
+                        </h3>
+                        <p className="text-sm text-stone-600">
+                          {font.designer} • {font.year}
+                        </p>
+                      </div>
+                      <Badge className="bg-amber-600">{font.year.slice(0, 4)}</Badge>
+                    </div>
+                    
+                    <div className="mb-4 p-4 bg-stone-50 rounded-lg border border-stone-200">
+                      <p className="text-5xl font-serif text-stone-800 mb-2">Aa Bb Gg</p>
+                      <p className="text-2xl font-serif text-stone-600">The Renaissance</p>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-stone-700 mb-4">{font.description}</p>
+
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-xs font-semibold text-stone-500 uppercase mb-1">Применение</p>
+                      <p className="text-sm text-stone-700">{font.usage}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold text-stone-500 uppercase mb-2">Характеристики</p>
+                      <div className="flex flex-wrap gap-1">
+                        {font.characteristics.map((char, idx) => (
+                          <Badge key={idx} variant="outline" className="text-xs">
+                            {char}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            <Card className="mt-8 p-8 bg-gradient-to-br from-amber-50 to-stone-100">
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Icon name="Info" size={24} />
+                Рекомендации по использованию
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-lg mb-2 flex items-center gap-2">
+                    <Icon name="BookText" size={18} className="text-amber-600" />
+                    Для заголовков
+                  </h4>
+                  <ul className="space-y-2 text-sm text-stone-700">
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Trajan</strong> — монументальные заголовки</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Garamond</strong> — элегантные названия</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Palatino</strong> — выразительные акценты</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg mb-2 flex items-center gap-2">
+                    <Icon name="FileText" size={18} className="text-amber-600" />
+                    Для основного текста
+                  </h4>
+                  <ul className="space-y-2 text-sm text-stone-700">
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Bembo</strong> — идеален для романов</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Sabon</strong> — длинные тексты</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Icon name="Check" size={16} className="text-green-600 mt-0.5" />
+                      <span><strong>Minion Pro</strong> — универсальный выбор</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedImage(null)}
           >
-            <Icon name="ChevronLeft" size={20} />
-            Назад
-          </Button>
-          <span className="text-sm text-muted-foreground">
-            Слайд {currentSlide + 1} из {slides.length}
-          </span>
-          <Button
-            onClick={nextSlide}
-            size="lg"
-            className="gap-2"
-            disabled={currentSlide === slides.length - 1}
-          >
-            Далее
-            <Icon name="ChevronRight" size={20} />
-          </Button>
-        </div>
+            <Card className="max-w-2xl w-full p-8">
+              {bookCovers.find(c => c.id === selectedImage) && (
+                <>
+                  <div className={`h-96 bg-gradient-to-br ${bookCovers.find(c => c.id === selectedImage)?.color} rounded-xl mb-6 flex items-center justify-center text-center p-8`}>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 w-full">
+                      <h2 className="text-4xl font-bold text-white mb-3">
+                        {bookCovers.find(c => c.id === selectedImage)?.title}
+                      </h2>
+                      <p className="text-xl text-white/90">
+                        {bookCovers.find(c => c.id === selectedImage)?.author}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2">Стиль обложки</h4>
+                      <p className="text-stone-600">
+                        {bookCovers.find(c => c.id === selectedImage)?.style}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-2">Ключевые элементы</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {bookCovers.find(c => c.id === selectedImage)?.elements.map((el, idx) => (
+                          <Badge key={idx} variant="secondary">{el}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    onClick={() => setSelectedImage(null)}
+                    className="w-full mt-6"
+                    size="lg"
+                  >
+                    Закрыть
+                  </Button>
+                </>
+              )}
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
