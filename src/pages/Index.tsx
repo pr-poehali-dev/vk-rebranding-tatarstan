@@ -415,33 +415,64 @@ const Index = () => {
                   </Card>
                 </div>
               </div>
-              <div className="relative">
-                <div className="w-[400px] h-[450px] bg-gradient-to-br from-amber-100 to-amber-200 rounded-t-3xl shadow-2xl relative overflow-hidden">
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px]">
-                    <div className="space-y-6 text-center">
-                      <div className="flex justify-center">
-                        <div className="w-24 h-24 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-purple-500 rounded-2xl flex items-center justify-center text-5xl shadow-xl">
-                          🌷
+              <div className="relative perspective-1000">
+                <div className="relative w-[380px] h-[480px] transform rotate-y-[-8deg]" style={{ transformStyle: 'preserve-3d' }}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-stone-100 via-stone-50 to-stone-100 rounded-sm shadow-[0_20px_60px_rgba(0,0,0,0.25)] border-[1px] border-stone-200/50">
+                    <div className="relative w-full h-full p-8 flex flex-col">
+                      <div className="absolute top-6 left-1/2 -translate-x-1/2 w-48 h-4 bg-gradient-to-r from-transparent via-stone-300/40 to-transparent rounded-full" />
+                      <div className="absolute top-8 left-12 right-12 flex justify-between">
+                        <div className="w-2 h-8 bg-stone-300/30 rounded-full" />
+                        <div className="w-2 h-8 bg-stone-300/30 rounded-full" />
+                      </div>
+                      
+                      <div className="flex-1 flex flex-col items-center justify-center space-y-8 mt-12">
+                        <div className="relative">
+                          <div className="w-28 h-28 bg-gradient-to-br from-[hsl(var(--vk-blue))] to-purple-500 rounded-2xl flex items-center justify-center text-6xl shadow-lg transform -rotate-3">
+                            🌷
+                          </div>
+                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-[hsl(var(--tatar-green))] rounded-full opacity-20" />
+                        </div>
+                        
+                        <div className="space-y-3 text-center">
+                          <h4 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+                            маруся
+                          </h4>
+                          <p className="text-xs text-stone-500 tracking-wider uppercase">VK Voice Assistant</p>
+                        </div>
+
+                        <div className="flex gap-2 justify-center">
+                          {[...Array(7)].map((_, i) => (
+                            <div 
+                              key={i} 
+                              className="w-1.5 h-1.5 rounded-full"
+                              style={{
+                                backgroundColor: `hsl(${250 + i * 10}, 70%, ${60 + i * 3}%)`,
+                                opacity: 0.4
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+                          <div className="w-16 h-16 bg-white rounded-lg p-1.5 shadow-md">
+                            <div className="w-full h-full bg-gray-900 rounded flex items-center justify-center">
+                              <div className="grid grid-cols-3 gap-0.5">
+                                {[...Array(9)].map((_, i) => (
+                                  <div key={i} className="w-2 h-2 bg-white rounded-sm" />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-[10px] text-center text-stone-500 mt-2">corp.mail.ru</p>
                         </div>
                       </div>
-                      <h4 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                        маруся
-                      </h4>
-                      <div className="flex justify-center gap-3">
-                        {[...Array(5)].map((_, i) => (
-                          <div key={i} className="w-3 h-3 bg-purple-400/30 rounded-full" />
-                        ))}
-                      </div>
-                      <div className="flex justify-center mt-6">
-                        <div className="w-20 h-20 bg-white rounded-lg p-2 shadow-md">
-                          <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-600 rounded" />
-                        </div>
-                      </div>
+
+                      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/20 pointer-events-none mix-blend-overlay" />
+                      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')] opacity-30" />
                     </div>
                   </div>
-                  <div className="absolute top-0 left-0 w-full h-16 flex justify-center pt-4">
-                    <div className="w-32 h-3 bg-amber-300 rounded-full" />
-                  </div>
+                  
+                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[85%] h-12 bg-gradient-to-b from-black/20 to-transparent rounded-full blur-xl" />
                 </div>
               </div>
             </div>
